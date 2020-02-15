@@ -1,9 +1,15 @@
 import React from "react";
+import Body from "./body";
+import Footer from "./footer";
 import Message from "./message";
 import Children from "./children";
-import Body from "./body";
+import Space from "./space";
+import convertBytes from "./convertBytes";
+import useCounts from "./useCounts";
 
 export default ({ status, nodes }) => {
+  const { fileCount, totalSize } = useCounts(nodes);
+
   if (status === "LOADING") return <Message>Loading...</Message>;
 
   if (status === "ERROR")
@@ -11,8 +17,16 @@ export default ({ status, nodes }) => {
 
   if (status === "SUCCESS")
     return (
-      <Body>
-        <Children nodes={nodes} expanded />
-      </Body>
+      <>
+        <Body>
+          <Children nodes={nodes} expanded />
+        </Body>
+        <Space size={0.5} />
+        <Footer>
+          Total files: {fileCount}
+          <br />
+          Total size: {convertBytes(totalSize)}
+        </Footer>
+      </>
     );
 };
