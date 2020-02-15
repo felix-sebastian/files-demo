@@ -1,6 +1,7 @@
 import React from "react";
 import Message from "./message";
 import Children from "./children";
+import Body from "./body";
 
 export default ({ status, nodes }) => {
   if (status === "LOADING") return <Message>Loading...</Message>;
@@ -8,5 +9,10 @@ export default ({ status, nodes }) => {
   if (status === "ERROR")
     return <Message>An error occurred while fetching the files!</Message>;
 
-  if (status === "SUCCESS") return <Children nodes={nodes} expanded />;
+  if (status === "SUCCESS")
+    return (
+      <Body>
+        <Children nodes={nodes} expanded />
+      </Body>
+    );
 };
